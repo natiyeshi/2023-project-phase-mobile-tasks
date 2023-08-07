@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'Task.dart';
 
 class Tasks extends StatefulWidget {
-  const Tasks({super.key});
+  Tasks({super.key});
 
   @override
   State<Tasks> createState() => _TasksState();
@@ -11,27 +11,31 @@ class Tasks extends StatefulWidget {
 class _TasksState extends State<Tasks> {
   final List tasks = [
     {
-      "name": "Ui/Ux App",
+      "title": "Ui/Ux App",
       "type": "Desigh",
       "date": "April 29,2023",
+      "desc" : "Ui/Ux description",
       "status": 1
     },
     {
-      "name": "View Candidates",
+      "title": "View Candidates",
       "type": "",
       "date": "April 29,2023",
+      "desc" : "View description",
       "status": 0
     },
     {
-      "name": "Football Cu",
+      "title": "Football Cu",
       "type": "Drybling",
       "date": "April 29,2023",
+      "desc" : "Drybling description",
       "status": -1
     },
     {
-      "name": "Mobile App",
+      "title": "Mobile App",
       "type": "Development",
       "date": "April 29,2023",
+      "desc" : "Mobile description",
       "status": 1
     },
   ];
@@ -47,8 +51,8 @@ class _TasksState extends State<Tasks> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.only(bottom: 10),
-            padding: EdgeInsets.only(left: 10),
+            margin: const EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.only(left: 10),
             child: const Text(
               "Tasks list",
               style: TextStyle(
@@ -57,7 +61,8 @@ class _TasksState extends State<Tasks> {
               ),
             ),
           ),
-          for (int i = 0; i < tasks.length; i++) Task(data: tasks[i]),
+          for (int i = 0; i < tasks.length; i++)
+            Task(data: tasks[i]),
         ],
       ),
     );

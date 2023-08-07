@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Body extends StatelessWidget {
-  const Body({super.key});
-
+  final Map? task;
+  Body({super.key,required this.task});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,7 +15,7 @@ class Body extends StatelessWidget {
             margin: const EdgeInsets.only(bottom: 10),
             alignment: Alignment.topLeft,
             child: const Text(
-              "Titlse",
+              "Title",
               style: TextStyle(fontSize: 17),
             ),
           ),
@@ -26,8 +26,8 @@ class Body extends StatelessWidget {
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.all(15),
             height: 60,
-            child: const Text(
-              "Ui/Ux App Design",
+            child: Text(
+              task?["title"],
               style: TextStyle(fontSize: 17),
             ),
           ),
@@ -46,9 +46,10 @@ class Body extends StatelessWidget {
             // alignment: Alignment.centerLeft,
             padding: const EdgeInsets.all(15),
             height: 150,
-            child: const Text(
-              "First i have to animate the logo and prototyping my design. its very important",
-              style: TextStyle(
+            width: double.infinity,
+            child: Text(
+              task?["desc"],
+              style: const TextStyle(
                 fontSize: 17,
               ),
             ),
@@ -68,9 +69,9 @@ class Body extends StatelessWidget {
             padding: const EdgeInsets.all(15),
             height: 50,
             width: double.infinity,
-            child: const Text(
-              "April 29, 2023",
-              style: TextStyle(
+            child: Text(
+              task?["date"],
+              style: const TextStyle(
                 fontSize: 17,
               ),
             ),

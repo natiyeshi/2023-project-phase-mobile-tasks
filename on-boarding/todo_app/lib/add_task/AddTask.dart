@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import 'Description.dart';
 import 'TaskName.dart';
-import 'Top.dart';
+import 'Nav.dart';
 import 'DueDate.dart';
 
 class AddTask extends StatefulWidget {
@@ -16,14 +16,12 @@ class _AddTaskState extends State<AddTask> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+    return Scaffold(
         backgroundColor: Colors.white,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Top(),
+            Nav(),
             Container(
               width: double.infinity,
               padding: const EdgeInsets.only(bottom: 10),
@@ -58,7 +56,6 @@ class _AddTaskState extends State<AddTask> {
                 ))
           ],
         ),
-      ),
     );
   }
 }

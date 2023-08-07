@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
 import 'Nav.dart';
 import 'Tasks.dart';
+import '../route/Route.dart' as route;
 
 class TodoList extends StatefulWidget {
   const TodoList({super.key});
-
   @override
   State<TodoList> createState() => _TodoListState();
 }
 
 class _TodoListState extends State<TodoList> {
+  
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+
+    return  Scaffold(
         backgroundColor: Colors.white,
         body: Column(
           children: [
-            const Nav(),
+            Nav(),
             Container(
               color: Colors.white,
               width: MediaQuery.of(context).size.width,
               height: 240,
               child: Image.asset("images/image2.png"),
             ),
-            const Tasks(),
+            Tasks(),
             Container(
               margin: const EdgeInsets.only(top: 30),
               child: MaterialButton(
-                onPressed: () {},
+                onPressed: () =>
+                    Navigator.pushNamed(context, route.addTaskPage),
                 color: const Color.fromARGB(255, 238, 111, 87),
                 minWidth: 240,
                 child: const Text(
@@ -43,7 +44,6 @@ class _TodoListState extends State<TodoList> {
             )
           ],
         ),
-      ),
     );
   }
 }
