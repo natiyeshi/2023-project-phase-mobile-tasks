@@ -1,30 +1,79 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-// import 'package:todo_app/main.dart';
+import '../lib/add_task/AddTask.dart';
+import "../lib/todo_list/TodoList.dart";
+import "../lib/todo_list/Task.dart";
+import "../lib/route/Route.dart" as route;
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    // await tester.pumpWidget(const MyApp());
+  testWidgets('Creation', (WidgetTester tester) async {
+    var titleKey = const Key("titleKey");
+    // var descKey = const Key("descKey");
+    var dateKey = const Key("dateKey");
+    var errKey = const Key("errorText");
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    await tester.pumpWidget(
+      const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: route.controller,
+        initialRoute: route.addTaskPage,
+      ),
+    );
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    // checking existring widgets
+    expect(find.text("Create new AddTask"), findsOneWidget);
+    expect(find.widgetWithText(MaterialButton, "Add Task"), findsOneWidget);
+    expect(find.byKey(errKey), findsOneWidget);
+
+    // Tap the "Add Task" button
+    await tester.tap(find.widgetWithText(MaterialButton, "Add Task"));
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // testing title validator
+    expect(find.byKey(errKey), findsOneWidget);
+    expect(find.text("empty title"), findsOneWidget);
+    expect(find.byKey(titleKey), findsOneWidget);
+
+    await tester.enterText(find.byKey(titleKey), "title");
+    await tester.tap(find.widgetWithText(MaterialButton, "Add Task"));
+    await tester.pump();
+
+    // testing date validator
+    expect(find.text("empty date"), findsOneWidget);
+    expect(find.byKey(dateKey), findsOneWidget);
+
+
+
+
+  });
+
+  testWidgets("Lestning", (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: TodoList()));
+
+    // chacking task
+    expect(find.byType(Task), findsAtLeastNWidgets(1));
+
+    //chacking button existance
+    expect(find.widgetWithText(MaterialButton, "Create task"), findsOneWidget);
+  });
+
+  testWidgets("onboarding", (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: route.controller,
+        initialRoute: route.welcomePage,
+      ),
+    );
+
+    // chacking button
+    expect(find.byType(ElevatedButton), findsOneWidget);
+
+    // changin route
+    await tester.tap(find.byType(ElevatedButton));
+    await tester.pumpAndSettle();
+
+    // check for Todo list page
+    expect(find.byType(TodoList), findsOneWidget);
   });
 }

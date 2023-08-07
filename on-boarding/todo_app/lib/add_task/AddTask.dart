@@ -3,6 +3,7 @@ import 'Description.dart';
 import 'TaskName.dart';
 import 'Nav.dart';
 import 'DueDate.dart';
+import "../route/Route.dart" as route;
 
 class AddTask extends StatefulWidget {
   const AddTask({super.key});
@@ -12,13 +13,68 @@ class AddTask extends StatefulWidget {
 }
 
 class _AddTaskState extends State<AddTask> {
-  String name = "abebe";
+  String title = "";
+  DateTime? date;
+  String desc = "";
+  String err = "";
+
+  Future<DateTime?> showDate() async {
+    final temp = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+    );
+    setState(() {
+      date = temp;
+    });
+    return temp;
+  }
+
+  void titleChange(String title) {
+    setState(() {
+      this.title = title;
+    });
+  }
+
+  void descChange(String desc) {
+    setState(() {
+      this.desc = desc;
+    });
+  }
+
+  void submit() {
+    if (title.trim() == "") {
+      setState(() {
+        err = "empty title";
+      });
+      return;
+    }
+    if (date == null) {
+      setState(() {
+        err = "empty date";
+      });
+      return;
+    }
+
+    if (desc.trim() == "") {
+      setState(() {
+        err = "empty desc";
+      });
+      return;
+    }
+    setState(() {
+      err = "";
+      Navigator.pushNamed(context, route.todoListPage);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Column(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Nav(),
@@ -45,17 +101,55 @@ class _AddTaskState extends State<AddTask> {
               ),
             ),
             Container(
-                margin: EdgeInsets.only(top: 10),
-                padding: EdgeInsets.all(20),
-                child: const Column(
-                  children: [
-                    TaskName(),
-                    DueDate(),
-                    Description(),
-                  ],
-                ))
+              margin: const EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  TaskName(onchange: titleChange),
+                  DueDate(showDate: showDate),
+                  Description(onchange: descChange),
+                  Container(
+                    margin: EdgeInsets.all(80),
+                    padding: EdgeInsets.all(0),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 238, 111, 87),
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: MaterialButton(
+                      onPressed: () {
+                        submit();
+                        // Navigator.pop(context);
+                        // Navigator.pop(context);
+                        // Navigator.pushNamed(context, route.todoListPage);
+                      },
+                      child: const Text(
+                        "Add Task",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    key: const Key('errorText'),
+                    err,
+                  )
+                ],
+              ),
+            )
           ],
         ),
+      ),
     );
   }
 }

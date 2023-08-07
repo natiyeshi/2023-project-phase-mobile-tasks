@@ -16,32 +16,36 @@ class _TodoListState extends State<TodoList> {
 
     return  Scaffold(
         backgroundColor: Colors.white,
-        body: Column(
+        body: ListView(
           children: [
-            Nav(),
-            Container(
-              color: Colors.white,
-              width: MediaQuery.of(context).size.width,
-              height: 240,
-              child: Image.asset("images/image2.png"),
-            ),
-            Tasks(),
-            Container(
-              margin: const EdgeInsets.only(top: 30),
-              child: MaterialButton(
-                onPressed: () =>
-                    Navigator.pushNamed(context, route.addTaskPage),
-                color: const Color.fromARGB(255, 238, 111, 87),
-                minWidth: 240,
-                child: const Text(
-                  "Create task",
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+            Column(
+              children: [
+                Nav(),
+                Container(
+                  color: Colors.white,
+                  width: MediaQuery.of(context).size.width,
+                  height: 240,
+                  child: Image.asset("images/image2.png"),
                 ),
-              ),
-            )
+                Tasks(),
+                Container(
+                  margin: const EdgeInsets.only(top: 30),
+                  child: MaterialButton(
+                    onPressed: () =>
+                        Navigator.pushNamed(context, route.addTaskPage),
+                    color: const Color.fromARGB(255, 238, 111, 87),
+                    minWidth: 240,
+                    child: const Text(
+                      "Create task",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ],
         ),
     );

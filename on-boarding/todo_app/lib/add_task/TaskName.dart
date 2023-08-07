@@ -1,7 +1,8 @@
 import "package:flutter/material.dart";
 
 class TaskName extends StatefulWidget {
-  const TaskName({super.key});
+  const TaskName({super.key, required this.onchange});
+  final dynamic onchange;
 
   @override
   State<TaskName> createState() => _TaskNameState();
@@ -14,7 +15,7 @@ class _TaskNameState extends State<TaskName> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Padding(
-          padding: EdgeInsets.only(top:8.0,left:15,right:8,bottom:8),
+          padding: EdgeInsets.only(top: 8.0, left: 15, right: 8, bottom: 8),
           child: Text(
             "Main task name",
             style: TextStyle(
@@ -24,7 +25,7 @@ class _TaskNameState extends State<TaskName> {
           ),
         ),
         Container(
-          padding: const EdgeInsets.only(left: 25,right:25),
+          padding: const EdgeInsets.only(left: 25, right: 25),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -38,7 +39,8 @@ class _TaskNameState extends State<TaskName> {
             ],
           ),
           child: TextField(
-            controller: TextEditingController(text:"UI/UX App design"),
+            key: const Key("titleKey"),
+            onChanged: widget.onchange,
             decoration: const InputDecoration(
               hintText: "task name",
               border: InputBorder.none,
