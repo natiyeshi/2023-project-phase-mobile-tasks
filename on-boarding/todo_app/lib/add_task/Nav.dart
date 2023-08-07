@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class Nav extends StatelessWidget {
-  
   const Nav({super.key});
 
   @override
@@ -22,16 +21,7 @@ class Nav extends StatelessWidget {
               color: Color.fromARGB(255, 238, 111, 87),
             ),
           ),
-          Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.only(top: 10),
-            child: const Text(
-              "Task Detail",
-              style: TextStyle(
-                fontSize: 17,
-              ),
-            ),
-          ),
+          
           const Icon(
             Icons.more_vert,
             size: 40,

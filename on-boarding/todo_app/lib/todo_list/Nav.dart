@@ -13,10 +13,13 @@ class Nav extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Icon(
-            Icons.navigate_before,
-            size: 45,
-            color: Color.fromARGB(255, 238, 111, 87),
+          GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: const Icon(
+              Icons.navigate_before,
+              size: 45,
+              color: Color.fromARGB(255, 238, 111, 87),
+            ),
           ),
           Container(
             alignment: Alignment.center,
