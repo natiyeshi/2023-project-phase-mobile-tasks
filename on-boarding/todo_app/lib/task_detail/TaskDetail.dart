@@ -12,7 +12,7 @@ class TaskDetail extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          Nav(),
+          const Nav(),
           SizedBox(
             height: 200,
             child: Image.asset("images/image3.png"),
