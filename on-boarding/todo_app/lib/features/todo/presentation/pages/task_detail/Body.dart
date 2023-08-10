@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/features/todo/domain/entities/task_entity.dart';
 
 class Body extends StatelessWidget {
-  final Map? task;
+  final TaskEntity task;
   Body({super.key,required this.task});
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class Body extends StatelessWidget {
             padding: EdgeInsets.all(15),
             height: 60,
             child: Text(
-              task?["title"],
+              task.title,
               style: TextStyle(fontSize: 17),
             ),
           ),
@@ -48,7 +49,7 @@ class Body extends StatelessWidget {
             height: 150,
             width: double.infinity,
             child: Text(
-              task?["desc"],
+              task.description,
               style: const TextStyle(
                 fontSize: 17,
               ),
@@ -70,7 +71,7 @@ class Body extends StatelessWidget {
             height: 50,
             width: double.infinity,
             child: Text(
-              task?["date"],
+              "${task.dueDate.day}/${task.dueDate.month}/${task.dueDate.year}",
               style: const TextStyle(
                 fontSize: 17,
               ),

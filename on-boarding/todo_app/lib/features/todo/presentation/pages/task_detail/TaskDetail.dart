@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/features/todo/domain/entities/task_entity.dart';
 import 'Nav.dart';
 import "Body.dart";
 
 class TaskDetail extends StatelessWidget {
-  final Map? task;
+  final TaskEntity task;
   const TaskDetail({super.key,required this.task});
 
   @override

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../route/Route.dart' as route;
+import 'package:todo_app/features/todo/domain/entities/task_entity.dart';
+import '../Route.dart' as route;
 
 class Task extends StatelessWidget {
-  final Map? data;
+  final TaskEntity data;
   Task({super.key, required this.data});
   final Map status = {
     0: const Color.fromARGB(255, 197, 209, 30),
@@ -40,7 +41,7 @@ class Task extends StatelessWidget {
               child: Container(
                 alignment: Alignment.center,
                 child: Text(
-                  data?["title"][0] ?? "",
+                  data.title[0],
                   style: const TextStyle(
                     fontSize: 22,
                   ),
@@ -56,7 +57,7 @@ class Task extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.only(top: 7),
                     child: Text(
-                      data?["title"] ?? "",
+                      data.title,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -66,7 +67,7 @@ class Task extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(top: 4),
                     child: Text(
-                      data?["type"] ?? "",
+                       "",
                       style: const TextStyle(
                           fontSize: 15, fontWeight: FontWeight.bold),
                     ),
@@ -79,7 +80,7 @@ class Task extends StatelessWidget {
               child: Container(
                 alignment: Alignment.topCenter,
                 child: Text(
-                  data?["date"] ?? "no date",
+                  "${data.dueDate.day}/${data.dueDate.month}/${data.dueDate.year}",
                 ),
               ),
             ),
@@ -87,7 +88,7 @@ class Task extends StatelessWidget {
               child: Container(
                 margin: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                    color: status[data?["status"] ?? 0],
+                    color: status[data.isCompleted],
                     borderRadius: const BorderRadius.all(Radius.circular(10))),
                 alignment: Alignment.center,
               ),

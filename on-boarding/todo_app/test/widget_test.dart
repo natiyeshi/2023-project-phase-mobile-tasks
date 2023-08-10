@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import '../lib/add_task/AddTask.dart';
-import "../lib/todo_list/TodoList.dart";
-import "../lib/todo_list/Task.dart";
-import "../lib/route/Route.dart" as route;
+import "../lib/features/todo/presentation/pages/todo_list/TodoList.dart";
+import "../lib/features/todo/presentation/pages/todo_list/Task.dart";
+import '../lib/features/todo/presentation/pages/Route.dart' as route;
+
 
 void main() {
   testWidgets('Creation', (WidgetTester tester) async {

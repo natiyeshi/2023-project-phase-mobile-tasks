@@ -1,9 +1,10 @@
+
 import "package:flutter/material.dart";
+import '../../../domain/entities/task_entity.dart';
 import 'Description.dart';
 import 'TaskName.dart';
 import 'Nav.dart';
 import 'DueDate.dart';
-import "../route/Route.dart" as route;
 
 class AddTask extends StatefulWidget {
   const AddTask({super.key});
@@ -17,7 +18,7 @@ class _AddTaskState extends State<AddTask> {
   DateTime? date;
   String desc = "";
   String err = "";
-
+  
   Future<DateTime?> showDate() async {
     final temp = await showDatePicker(
       context: context,
@@ -65,7 +66,8 @@ class _AddTaskState extends State<AddTask> {
     }
     setState(() {
       err = "";
-      Navigator.pushNamed(context, route.todoListPage);
+      TaskEntity newTask = TaskEntity(id: 10,title:title,description: desc,dueDate: date ?? DateTime.now());
+      Navigator.pop(context, newTask);
     });
   }
 

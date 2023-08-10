@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import "../route/Route.dart" as route;
+import '../Route.dart' as route;
 
 class Welcome extends StatelessWidget {
   const Welcome({super.key});
