@@ -22,7 +22,7 @@ Route<dynamic> controller(RouteSettings settings) {
     case taskDetailPage:
       final TaskEntity data = settings.arguments as TaskEntity;
       return MaterialPageRoute(
-          builder: (context) => TaskDetail(task: data));
+          builder: (context) => TaskDetail(task: data,isCompleted : data.isCompleted));
     default:
       return throw ("invalid navigation");
   }

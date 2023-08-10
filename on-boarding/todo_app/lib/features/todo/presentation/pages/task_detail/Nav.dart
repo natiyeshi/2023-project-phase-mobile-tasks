@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Nav extends StatelessWidget {
-  
-  const Nav({super.key});
+  bool isCompleted;
+  Nav({super.key, required this.isCompleted});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,10 @@ class Nav extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
-            onTap: () => Navigator.pop(context),
+            onTap: () {
+               Navigator.pop(context,isCompleted);
+
+            },
             child: const Icon(
               Icons.navigate_before,
               size: 45,

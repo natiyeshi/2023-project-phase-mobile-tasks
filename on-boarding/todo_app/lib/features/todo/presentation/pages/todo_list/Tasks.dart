@@ -1,16 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/features/todo/domain/entities/task_entity.dart';
 import 'Task.dart';
+import '../Route.dart' as route;
 
 class Tasks extends StatefulWidget {
-  Tasks({super.key,required this.tasks});
+  Tasks({super.key, required this.tasks});
 
-  final List tasks;
+  List tasks;
 
   @override
   State<Tasks> createState() => _TasksState();
 }
 
 class _TasksState extends State<Tasks> {
+  void _ontap(int i) async {
+    dynamic isCompleted = await Navigator.pushNamed(
+        context, route.taskDetailPage,
+        arguments: widget.tasks[i]);
+
+    if (isCompleted is bool) {
+      setState(() {
+        widget.tasks[i].isCompleted = isCompleted;
+        print("--------------$isCompleted");
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +47,9 @@ class _TasksState extends State<Tasks> {
               ),
             ),
           ),
-          for (int i = 0; i < widget.tasks.length; i++) Task(data: widget.tasks[i]),
+          for (int i = 0; i < widget.tasks.length; i++)
+            GestureDetector(
+                onTap: () => _ontap(i), child: Task(data: widget.tasks[i])),
         ],
       ),
     );

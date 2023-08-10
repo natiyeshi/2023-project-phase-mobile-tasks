@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:todo_app/features/todo/domain/entities/task_entity.dart';
 import 'Nav.dart';
@@ -16,26 +18,26 @@ class _TodoListState extends State<TodoList> {
       title: "Ui/Ux App",
       description: "Deisgn",
       dueDate: DateTime.now(),
-      id: 1,
+      id: Random().nextInt(1000),
     ),
     TaskEntity(
       title: "Mobile App",
       description: "Mobile description",
       dueDate: DateTime.now(),
-      id: 1,
+      id: Random().nextInt(1000),
     ),
     TaskEntity(
       title: "Football Cu",
       description: "Drybling description",
       dueDate: DateTime.now(),
-      id: 1,
+      id: Random().nextInt(1000),
     ),
    
     TaskEntity(
       title: "View Candidates",
       description: "View description",
       dueDate: DateTime.now(),
-      id: 1,
+      id: Random().nextInt(1000),
     ),
     
   ];
