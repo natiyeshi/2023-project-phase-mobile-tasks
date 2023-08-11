@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/features/todo/domain/entities/task_entity.dart';
 
+// ignore: must_be_immutable
 class Task extends StatelessWidget {
   TaskEntity data;
   Task({super.key, required this.data});

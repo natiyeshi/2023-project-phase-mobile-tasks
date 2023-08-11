@@ -6,9 +6,9 @@ import 'package:todo_app/features/todo/domain/entities/task_entity.dart';
 // import 'package:todo_app/features/todo/domain/repositories/task_repo_contract.dart';
 
 class GetTaskUsecase implements Usecase<List<TaskEntity>, void> {
-  final TaskRepoImpl repository;
+  final TaskRepoImpl repository = TaskRepoImpl();
 
-  GetTaskUsecase(this.repository);
+  GetTaskUsecase();
 
   @override
   Future<Either<Failure, List<TaskEntity>>> call(void params) async {

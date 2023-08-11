@@ -13,17 +13,31 @@ class Tasks extends StatefulWidget {
 }
 
 class _TasksState extends State<Tasks> {
-  void _ontap(int i) async {
-    // dynamic isCompleted = await Navigator.pushNamed(
-    //     context, route.taskDetailPage,
-    //     arguments: widget.tasks[i]);
+  void _ontap(TaskEntity task, BuildContext context) async {
+    dynamic isCompleted = await Navigator.pushNamed(
+      context,
+      route.taskDetailPage,
+      arguments: task,
+    );
+    
+    if (isCompleted != null) {
+      // ignore: use_build_context_synchronously
+      context
+          .read<TodosBloc>()
+          .add(ChangeIsCompleted(id: task.id, isComplted: isCompleted));
+    } 
+  }
 
-    // if (isCompleted is bool) {
-    //   setState(() {
-    //     widget.tasks[i].isCompleted = isCompleted;
-    //     print("--------------$isCompleted");
-    //   });
-    // }
+  List<GestureDetector> setTasks(
+      List<TaskEntity>? tasks, BuildContext context) {
+    List<GestureDetector> temp = [];
+    for (int i = 0; i < tasks!.length; i++) {
+      temp.add(GestureDetector(
+        onTap: () => _ontap(tasks[i], context),
+        child: Task(data: tasks[i]),
+      ));
+    }
+    return temp;
   }
 
   @override
@@ -49,12 +63,11 @@ class _TasksState extends State<Tasks> {
                   ),
                 ),
               ),
-              state is TodosLoaded ? 
-              for (int i = 0; i < state.tasks; i++)
-                GestureDetector(
-                  onTap: () => _ontap(i),
-                  child: Task(data: widget.tasks[i]),
-                ) : Text("nothing here"),
+              Column(
+                children:
+                    state is TodosLoaded ? setTasks(state.tasks, context) : [],
+              ),
+              state is Error ? Text("${state.error}") : Text("")
             ],
           ),
         );

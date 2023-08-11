@@ -8,5 +8,5 @@ abstract class TaskRepoContract {
   Future<Either<Failure,TaskEntity>> getTaskById(int taskId);
   Future<Either<Failure,void>> addTask(TaskEntity task);
   Future<Either<Failure,void>> updateTask(TaskEntity task);
-  Future<void> updateTaskCompletionStatus(int taskId, bool isCompleted);
+  Future<Either<Failure,void>> updateTaskCompletionStatus(int taskId, bool isCompleted);
 }

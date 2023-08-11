@@ -16,3 +16,12 @@ class AddTask extends TodosEvent {
   @override
   List<Object> get props => [task];
 }
+
+class ChangeIsCompleted extends TodosEvent {
+  final int id;
+  final bool isComplted;
+  const ChangeIsCompleted({required this.id, required this.isComplted});
+
+  @override
+  List<Object> get props => [id,isComplted];  
+}

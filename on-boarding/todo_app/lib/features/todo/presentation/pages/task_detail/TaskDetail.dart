@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/features/todo/domain/entities/task_entity.dart';
 import 'Nav.dart';
 
+// ignore: must_be_immutable
 class TaskDetail extends StatefulWidget {
   TaskEntity task;
   bool isCompleted;

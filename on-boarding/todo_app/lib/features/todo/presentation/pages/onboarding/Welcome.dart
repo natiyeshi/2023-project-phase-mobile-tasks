@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/features/todo/presentation/bloc/todos_bloc.dart';
 import '../Route.dart' as route;
 
 class Welcome extends StatelessWidget {
@@ -27,14 +29,21 @@ class Welcome extends StatelessWidget {
                 child: SizedBox(
                   width: 256,
                   height: 50,
-                  child: ElevatedButton(
-                    onPressed: () =>
-                        Navigator.pushNamed(context, route.todoListPage),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 12, 140, 233),
-                    ),
-                    child: const Text("Get started",
-                        style: TextStyle(fontSize: 19)),
+                  child: BlocBuilder<TodosBloc, TodosState>(
+                    builder: (context, state) {
+                      return ElevatedButton(
+                        onPressed: () {
+                          context.read<TodosBloc>().add(GetTasks());
+                          Navigator.pushNamed(context, route.todoListPage);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 12, 140, 233),
+                        ),
+                        child: const Text("Get started",
+                            style: TextStyle(fontSize: 19)),
+                      );
+                    },
                   ),
                 ),
               ),

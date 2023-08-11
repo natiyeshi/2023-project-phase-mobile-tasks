@@ -1,3 +1,4 @@
+import 'dart:math';
 
 import "package:flutter/material.dart";
 import '../../../domain/entities/task_entity.dart';
@@ -18,7 +19,7 @@ class _AddTaskState extends State<AddTask> {
   DateTime? date;
   String desc = "";
   String err = "";
-  
+
   Future<DateTime?> showDate() async {
     final temp = await showDatePicker(
       context: context,
@@ -44,31 +45,28 @@ class _AddTaskState extends State<AddTask> {
     });
   }
 
-  void submit() {
+  bool submit() {
     if (title.trim() == "") {
       setState(() {
         err = "empty title";
       });
-      return;
+      return false;
     }
     if (date == null) {
       setState(() {
         err = "empty date";
       });
-      return;
+      return false;
     }
 
     if (desc.trim() == "") {
       setState(() {
         err = "empty desc";
       });
-      return;
+      return false;
     }
-    setState(() {
-      err = "";
-      TaskEntity newTask = TaskEntity(id: 10,title:title,description: desc,dueDate: date ?? DateTime.now());
-      Navigator.pop(context, newTask);
-    });
+
+    return true;
   }
 
   @override
@@ -128,10 +126,16 @@ class _AddTaskState extends State<AddTask> {
                     ),
                     child: MaterialButton(
                       onPressed: () {
-                        submit();
-                        // Navigator.pop(context);
-                        // Navigator.pop(context);
-                        // Navigator.pushNamed(context, route.todoListPage);
+                        if (submit()) {
+                          err = "";
+                          TaskEntity newTask = TaskEntity(
+                            id: Random().nextInt(200),
+                            title: title,
+                            description:desc,
+                            dueDate: date ?? DateTime.now(),
+                          );
+                          Navigator.pop(context, newTask);
+                        }
                       },
                       child: const Text(
                         "Add Task",
