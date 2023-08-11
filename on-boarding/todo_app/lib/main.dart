@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/features/todo/presentation/bloc/todos_bloc.dart';
 import './features/todo/presentation/pages/Route.dart' as route;
 
 void main() {
@@ -10,10 +12,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: route.controller,
-      initialRoute: route.welcomePage,
+    return BlocProvider(
+      create: (context) => TodosBloc(),
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: route.controller,
+        initialRoute: route.welcomePage,
+      ),
     );
   }
 }
