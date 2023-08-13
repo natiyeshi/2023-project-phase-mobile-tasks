@@ -5,12 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app/core/errors/failure.dart';
 import 'package:todo_app/features/todo/data/models/task_model.dart';
 import 'package:todo_app/features/todo/domain/entities/task_entity.dart';
-
-abstract class LocalDataSourceContract {
-  Future<Either<Failure, void>> saveData(TaskModel task);
-  Future<Either<Failure, List<TaskEntity>>> getAllTasks();
-  Future<Either<Failure, void>> updateIsCompleted(int id, bool isCompleted);
-}
+import "./local_data_source_contract.dart";
 
 class LocalDataSource extends LocalDataSourceContract {
   final String saveKey = "tasks";
@@ -18,37 +13,40 @@ class LocalDataSource extends LocalDataSourceContract {
   @override
   Future<Either<Failure, void>> saveData(TaskEntity task) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-
-      final savedTasksJson = prefs.getStringList(saveKey) ?? [];
+      final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      
+      final savedTasksJson = sharedPreferences.getStringList(saveKey) ?? [];
 
       final TaskModel taskModel = TaskModel.fromEntity(task);
 
       savedTasksJson.add(json.encode(taskModel.toJson()));
 
-      await prefs.setStringList(saveKey, savedTasksJson);
+      await sharedPreferences.setStringList(saveKey, savedTasksJson);
 
-      return Right(null);
+      return  Right(null);
     } catch (e) {
-      return Left(Failure(error: "$e"));
+      return Left(Failure(error: "$e , while setting data"));
     }
   }
 
   @override
   Future<Either<Failure, List<TaskEntity>>> getAllTasks() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final List<String> savedTasksJson = prefs.getStringList(saveKey) ?? [];
-      // Convert JSON strings to TaskModel objects
-      print(savedTasksJson);
+      final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+      final List<String> savedTasksJson =
+          sharedPreferences.getStringList(saveKey) ?? [];
+
       final List<TaskEntity> savedTasks = savedTasksJson
-          .map((data) =>
-              TaskEntity.fromModel(TaskModel.fromJson(json.decode(data))))
+          .map(
+            (data) =>
+                TaskEntity.fromModel(TaskModel.fromJson(json.decode(data))),
+          )
           .toList();
 
       return Right(savedTasks);
     } catch (e) {
-      return Left(Failure(error: "$e"));
+      return Left(Failure(error: "$e , while getting data"));
     }
   }
 
@@ -56,7 +54,7 @@ class LocalDataSource extends LocalDataSourceContract {
   Future<Either<Failure, void>> updateIsCompleted(
       int id, bool isCompleted) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
+      final sharedPreferences = await SharedPreferences.getInstance();
       dynamic result = await getAllTasks();
 
       dynamic tasks = result.fold((l) => l, (r) => r);
@@ -70,7 +68,7 @@ class LocalDataSource extends LocalDataSourceContract {
           newdatas.add(json.encode(task.toJson()));
         });
 
-        await prefs.setStringList(saveKey, newdatas);
+        await sharedPreferences.setStringList(saveKey, newdatas);
       }
 
       return Right(null);

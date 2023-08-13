@@ -22,7 +22,7 @@ class  TaskEntity extends Equatable {
       "id": id,
       "title": title,
       "description": description,
-      "dueDate": dueDate.toString(),
+      "dueDate":  dueDate.toString(),
       "isCompleted" : isCompleted
     };
   }

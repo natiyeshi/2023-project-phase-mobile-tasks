@@ -6,7 +6,6 @@ import "../data_source/local_data_source.dart";
 
 class TaskRepoImpl implements TaskRepoContract {
   final LocalDataSource localDataSource = LocalDataSource();
-
   @override
   Future<Either<Failure, void>> addTask(TaskEntity task) async {
     try {
@@ -36,7 +35,8 @@ class TaskRepoImpl implements TaskRepoContract {
   }
 
   @override
-  Future<Either<Failure,void>> updateTaskCompletionStatus(int taskId, bool isCompleted) async {
+  Future<Either<Failure, void>> updateTaskCompletionStatus(
+      int taskId, bool isCompleted) async {
     final result = await localDataSource.updateIsCompleted(taskId, isCompleted);
     return result.fold((failure) => Left(failure), (r) => Right(null));
   }
