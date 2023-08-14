@@ -4,7 +4,8 @@
 
 <p>
 
-    A2SV 2023 project phase Mobile Team,This repository serves as a central hub for tracking the progress of my app development tasks
+    A2SV 2023 project phase Mobile Team,This repository serves as a
+    central hub for tracking the progress of my app development tasks
 
 </p>
 
