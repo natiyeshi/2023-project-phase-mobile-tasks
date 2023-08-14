@@ -9,9 +9,7 @@
 
 </p>
 
-<code>
-    ScreenshoDemo
-</code>
+<h4> ScreenshoDemo </h4>
 
 <div style="display:flex;">
 
