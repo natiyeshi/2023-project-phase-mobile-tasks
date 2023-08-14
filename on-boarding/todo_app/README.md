@@ -9,7 +9,7 @@
 
 </p>
 
-<h4> ScreenshoDemo </h4>
+<h4> screenshots </h4>
 
 <div style="display:flex;">
 
