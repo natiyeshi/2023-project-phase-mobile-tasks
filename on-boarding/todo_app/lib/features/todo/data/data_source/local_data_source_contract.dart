@@ -6,7 +6,7 @@ import 'package:todo_app/features/todo/domain/entities/task_entity.dart';
 
 
 abstract class LocalDataSourceContract {
-  Future<Either<Failure, void>> saveData(TaskModel task);
   Future<Either<Failure, List<TaskEntity>>> getAllTasks();
+  Future<Either<Failure, void>> saveData(TaskModel task);
   Future<Either<Failure, void>> updateIsCompleted(int id, bool isCompleted);
 }

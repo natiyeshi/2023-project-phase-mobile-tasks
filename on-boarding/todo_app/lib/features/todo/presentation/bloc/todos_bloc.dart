@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:todo_app/core/usecases/usecase.dart';
 import 'package:todo_app/features/todo/domain/entities/task_entity.dart';
 import 'package:todo_app/features/todo/domain/usecases/add_task_usecase.dart';
 import 'package:todo_app/features/todo/domain/usecases/get_task_usecase.dart';
@@ -20,7 +21,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
 
   Future<void> _onGetTasks(GetTasks event, Emitter<TodosState> emit) async {
     emit(TodosLoading());
-    final result = await getTask.call(null);
+    final result = await getTask.call(NoParams());
     result.fold(
       (failure) {
         emit(Error(error: failure.error));
@@ -45,17 +46,18 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
   }
 
   Future<void> _onChangeIsCompleted(
-      ChangeIsCompleted event, Emitter<TodosState> emit) async {
-    emit(TodosLoading());
+      ChangeIsCompleted event, Emitter<TodosState> emit ) async {
 
-    final result = await updateCompletion.call(event.id,event.isComplted);
-    await result.fold(
-      (failure) {
-        emit(Error(error: failure.error));
-      },
-      (temp) async {
-        await _onGetTasks(GetTasks(), emit);
-      },
-    );
+        emit(TodosLoading());
+
+        final result = await updateCompletion.call(event.id, event.isComplted);
+        await result.fold(
+          (failure) {
+            emit(Error(error: failure.error));
+          },
+          (temp) async {
+            await _onGetTasks(GetTasks(), emit);
+          },
+        );
   }
 }

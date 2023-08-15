@@ -9,30 +9,15 @@ import "./local_data_source_contract.dart";
 
 class LocalDataSource extends LocalDataSourceContract {
   final String saveKey = "tasks";
-
-  @override
-  Future<Either<Failure, void>> saveData(TaskEntity task) async {
-    try {
-      final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-      
-      final savedTasksJson = sharedPreferences.getStringList(saveKey) ?? [];
-
-      final TaskModel taskModel = TaskModel.fromEntity(task);
-
-      savedTasksJson.add(json.encode(taskModel.toJson()));
-
-      await sharedPreferences.setStringList(saveKey, savedTasksJson);
-
-      return  Right(null);
-    } catch (e) {
-      return Left(Failure(error: "$e , while setting data"));
-    }
-  }
+  // final SharedPreferences sharedPreferences;
+  
+  // LocalDataSource(this.sharedPreferences);
 
   @override
   Future<Either<Failure, List<TaskEntity>>> getAllTasks() async {
     try {
-      final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      final SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
 
       final List<String> savedTasksJson =
           sharedPreferences.getStringList(saveKey) ?? [];
@@ -47,6 +32,27 @@ class LocalDataSource extends LocalDataSourceContract {
       return Right(savedTasks);
     } catch (e) {
       return Left(Failure(error: "$e , while getting data"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> saveData(TaskEntity task) async {
+    try {
+      final SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+
+      final List<String> savedTasksJson =
+          sharedPreferences.getStringList(saveKey) ?? [];
+
+      final TaskModel taskModel = TaskModel.fromEntity(task);
+
+      savedTasksJson.add(json.encode(taskModel.toJson()));
+
+      await sharedPreferences.setStringList(saveKey, savedTasksJson);
+
+      return Right(null);
+    } catch (e) {
+      return Left(Failure(error: "$e , while setting data"));
     }
   }
 
