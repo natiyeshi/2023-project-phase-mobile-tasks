@@ -8,12 +8,10 @@ class TaskRepoImpl implements TaskRepoContract {
   final LocalDataSource localDataSource = LocalDataSource();
   @override
   Future<Either<Failure, void>> addTask(TaskEntity task) async {
-    try {
-      final result = await localDataSource.saveData(task);
-      return result.fold((l) => Left(l), (r) => Right(r));
-    } on Failure catch (err) {
-      return Left(err);
-    }
+    
+    final result = await localDataSource.saveData(task);
+    return result.fold((l) => Left(l), (r) => Right(r));
+   
   }
 
   @override
