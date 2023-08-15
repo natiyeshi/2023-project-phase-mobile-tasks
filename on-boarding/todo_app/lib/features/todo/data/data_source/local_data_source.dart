@@ -9,9 +9,7 @@ import "./local_data_source_contract.dart";
 
 class LocalDataSource extends LocalDataSourceContract {
   final String saveKey = "tasks";
-  // final SharedPreferences sharedPreferences;
   
-  // LocalDataSource(this.sharedPreferences);
 
   @override
   Future<Either<Failure, List<TaskEntity>>> getAllTasks() async {
