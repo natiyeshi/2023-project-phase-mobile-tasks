@@ -9,14 +9,12 @@ import "./local_data_source_contract.dart";
 
 class LocalDataSource extends LocalDataSourceContract {
   final String saveKey = "tasks";
-  
-
+  final SharedPreferences sharedPreferences;
+  LocalDataSource(this.sharedPreferences);
   @override
   Future<Either<Failure, List<TaskEntity>>> getAllTasks() async {
     try {
-      final SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-
+      
       final List<String> savedTasksJson =
           sharedPreferences.getStringList(saveKey) ?? [];
 
@@ -36,8 +34,6 @@ class LocalDataSource extends LocalDataSourceContract {
   @override
   Future<Either<Failure, void>> saveData(TaskEntity task) async {
     try {
-      final SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
 
       final List<String> savedTasksJson =
           sharedPreferences.getStringList(saveKey) ?? [];

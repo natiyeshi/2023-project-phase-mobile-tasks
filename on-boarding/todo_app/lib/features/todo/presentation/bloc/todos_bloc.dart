@@ -10,14 +10,19 @@ part 'todos_event.dart';
 part 'todos_state.dart';
 
 class TodosBloc extends Bloc<TodosEvent, TodosState> {
-  TodosBloc() : super(TodosInitial()) {
+  TodosBloc(
+    this.getTask,
+    this.addTask,
+    this.updateCompletion
+  ) : super(TodosInitial()) {
     on<GetTasks>(_onGetTasks);
     on<AddTask>(_onAddTask);
     on<ChangeIsCompleted>(_onChangeIsCompleted);
   }
-  final GetTaskUsecase getTask = GetTaskUsecase();
-  final AddTaskUsecase addTask = AddTaskUsecase();
-  final UpdateCompletion updateCompletion = UpdateCompletion();
+  
+  final GetTaskUsecase getTask;
+  final AddTaskUsecase addTask;
+  final UpdateCompletion updateCompletion;
 
   Future<void> _onGetTasks(GetTasks event, Emitter<TodosState> emit) async {
     emit(TodosLoading());
