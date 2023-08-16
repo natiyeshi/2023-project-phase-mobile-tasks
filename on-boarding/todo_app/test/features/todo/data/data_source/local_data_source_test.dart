@@ -24,8 +24,6 @@ void main() {
     mockSharedPreferences = MockSharedPreferences();
     localDataSource = LocalDataSource();
   });
- 
-
   test('should save the task data', () async {
     when(mockSharedPreferences.getStringList(localDataSource.saveKey))
         .thenReturn([]); // Mock empty existing data

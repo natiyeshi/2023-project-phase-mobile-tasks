@@ -5,12 +5,13 @@ import 'package:todo_app/features/todo/domain/repositories/task_repo_contract.da
 import "../data_source/local_data_source.dart";
 
 class TaskRepoImpl implements TaskRepoContract {
-  final LocalDataSource localDataSource;
-  TaskRepoImpl(this.localDataSource);
+  final LocalDataSource localDataSource = LocalDataSource();
   @override
   Future<Either<Failure, void>> addTask(TaskEntity task) async {
+    
     final result = await localDataSource.saveData(task);
     return result.fold((l) => Left(l), (r) => Right(r));
+   
   }
 
   @override
