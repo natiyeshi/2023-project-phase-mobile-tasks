@@ -22,7 +22,7 @@ void main() {
 
   setUp(() {
     mockSharedPreferences = MockSharedPreferences();
-    localDataSource = LocalDataSource(mockSharedPreferences);
+    localDataSource = LocalDataSource();
   });
   test('should save the task data', () async {
     when(mockSharedPreferences.getStringList(localDataSource.saveKey))
