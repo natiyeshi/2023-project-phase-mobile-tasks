@@ -1,8 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:todo_app/core/errors/failure.dart';
-// import 'package:todo_app/core/usecases/usecase.dart';
 import 'package:todo_app/features/todo/domain/repositories/task_repo_contract.dart';
-// import 'package:todo_app/features/todo/domain/repositories/task_repo_contract.dart';
 
 class UpdateCompletion {
   final TaskRepoContract repository;

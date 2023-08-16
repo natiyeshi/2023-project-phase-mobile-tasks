@@ -19,7 +19,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
     on<AddTask>(_onAddTask);
     on<ChangeIsCompleted>(_onChangeIsCompleted);
   }
-  
+
   final GetTaskUsecase getTask;
   final AddTaskUsecase addTask;
   final UpdateCompletion updateCompletion;
