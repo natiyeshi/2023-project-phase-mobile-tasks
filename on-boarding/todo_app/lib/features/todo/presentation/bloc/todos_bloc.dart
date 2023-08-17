@@ -14,6 +14,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
     on<GetTasks>(_onGetTasks);
     on<AddTask>(_onAddTask);
     on<ChangeIsCompleted>(_onChangeIsCompleted);
+    // on<EditTask>(_onEditTask);
   }
   final GetTaskUsecase getTask = GetTaskUsecase();
   final AddTaskUsecase addTask = AddTaskUsecase();
@@ -60,4 +61,20 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
           },
         );
   }
+
+  // Future<void> _onEditTask(
+  //     EditTask event, Emitter<TodosState> emit ) async {
+
+  //       emit(TodosLoading());
+
+  //       final result = await updateCompletion.call(event.id, event.isComplted);
+  //       await result.fold(
+  //         (failure) {
+  //           emit(Error(error: failure.error));
+  //         },
+  //         (temp) async {
+  //           await _onGetTasks(GetTasks(), emit);
+  //         },
+  //       );
+  // }
 }

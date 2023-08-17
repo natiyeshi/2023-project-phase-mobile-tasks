@@ -9,4 +9,5 @@ abstract class LocalDataSourceContract {
   Future<Either<Failure, List<TaskEntity>>> getAllTasks();
   Future<Either<Failure, void>> saveData(TaskModel task);
   Future<Either<Failure, void>> updateIsCompleted(int id, bool isCompleted);
+  Future<Either<Failure, void>> updateTask(TaskModel task);
 }

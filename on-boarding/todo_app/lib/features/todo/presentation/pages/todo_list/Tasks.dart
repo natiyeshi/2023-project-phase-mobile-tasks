@@ -31,7 +31,7 @@ class _TasksState extends State<Tasks> {
   List<GestureDetector> setTasks(
       List<TaskEntity>? tasks, BuildContext context) {
     List<GestureDetector> temp = [];
-    for (int i = 0; i < tasks!.length; i++) {
+    for (int i = tasks!.length - 1; i > -1; i--) {
       temp.add(GestureDetector(
         onTap: () => _ontap(tasks[i], context),
         child: Task(data: tasks[i]),

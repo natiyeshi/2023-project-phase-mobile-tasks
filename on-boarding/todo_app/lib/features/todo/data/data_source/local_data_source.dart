@@ -9,7 +9,6 @@ import "./local_data_source_contract.dart";
 
 class LocalDataSource extends LocalDataSourceContract {
   final String saveKey = "tasks";
-  
 
   @override
   Future<Either<Failure, List<TaskEntity>>> getAllTasks() async {
@@ -19,7 +18,7 @@ class LocalDataSource extends LocalDataSourceContract {
 
       final List<String> savedTasksJson =
           sharedPreferences.getStringList(saveKey) ?? [];
-
+          
       final List<TaskEntity> savedTasks = savedTasksJson
           .map(
             (data) =>
@@ -71,6 +70,34 @@ class LocalDataSource extends LocalDataSourceContract {
           }
           newdatas.add(json.encode(task.toJson()));
         });
+
+        await sharedPreferences.setStringList(saveKey, newdatas);
+      }
+
+      return Right(null);
+    } catch (e) {
+      return Left(Failure(error: "$e"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateTask(TaskModel task) async {
+    try {
+      final sharedPreferences = await SharedPreferences.getInstance();
+      dynamic result = await getAllTasks();
+
+      dynamic tasks = result.fold((l) => l, (r) => r);
+
+      if (tasks is List<TaskEntity>) {
+        List<String> newdatas = [];
+        
+        for (int i = 0; i < tasks.length; i++) {
+          if (tasks[i].id == task.id) {
+            newdatas.add(json.encode(task.toJson()));
+          } else{
+            newdatas.add(json.encode(tasks[i].toJson()));
+          }
+        }
 
         await sharedPreferences.setStringList(saveKey, newdatas);
       }
